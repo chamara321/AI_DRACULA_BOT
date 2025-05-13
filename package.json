@@ -1,0 +1,30 @@
+{
+  "name": "ai-dracula-bot",
+  "version": "1.0.0",
+  "description": "Unofficial Sinhala ethical AI Dracula Bot with MEGA integration",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "AI",
+    "Dracula",
+    "Sinhala",
+    "Mega",
+    "Ethical",
+    "Unofficial",
+    "WhatsApp Bot"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "mega": "^1.1.2",
+    "axios": "^1.6.0",
+    "whatsapp-web.js": "^1.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
