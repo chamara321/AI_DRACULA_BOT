@@ -1,0 +1,16 @@
+# WhatsApp Cloud API Settings
+ACCESS_TOKEN=your_whatsapp_access_token_here
+RECIPIENT_WAID=94785081135
+PHONE_NUMBER_ID=your_phone_number_id
+VERSION=v19.0
+
+# Facebook App Credentials (if needed)
+APP_ID=your_facebook_app_id
+APP_SECRET=your_facebook_app_secret
+
+# MEGA API Key (if you're using it in the backend)
+MEGA_API_KEY=YzIbB5uRs6ooEqW7uohx5A
+
+# Bot identity
+BOT_NAME=AI Dracula Bot
+LANGUAGE=si
