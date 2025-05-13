@@ -2,8 +2,8 @@
 const mega = require('megajs');
 
 // MEGA Login credentials
-const email = 'your-email@example.com';
-const password = 'your-password';
+const email = 'chamarasadakalum68@gmail.com';
+const password = '0724551791';
 const megaClient = mega();
 
 /**
