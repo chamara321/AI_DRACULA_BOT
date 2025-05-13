@@ -1,23 +1,24 @@
-const { exec } = require('child_process'); // child_process module එක import කරන්න
+// restart.js
 
-// Restart the bot
+const { exec } = require('child_process');
+
+// Restart the bot (or server)
 function restartBot() {
-    console.log('Bot is restarting...');
-    
-    // Exits the current process and restarts it
-    exec('node ' + process.argv[1], (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error restarting bot: ${error}`);
-            return;
-        }
-        if (stderr) {
-            console.error(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-    });
+  console.log('Restarting bot...');
+  
+  // Command to restart the bot (use the command suited to your bot's environment)
+  exec('pm2 restart ai-dracula-bot', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error restarting bot: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
 }
 
-module.exports = {
-    restartBot
-};
+// Export the restartBot function
+module.exports = restartBot;
