@@ -14,3 +14,7 @@ MEGA_API_KEY=YzIbB5uRs6ooEqW7uohx5A
 # Bot identity
 BOT_NAME=AI Dracula Bot
 LANGUAGE=si
+
+# Admin credentials
+ADMIN_PHONE_NUMBER=0785081135  # Admin's WhatsApp phone number (replace with actual number)
+ADMIN_PASSWORD=your_admin_password_here  # Admin password or some form of authentication
