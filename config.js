@@ -3,8 +3,8 @@
 module.exports = {
   // MEGA API Credentials
   mega: {
-    email: 'your-email@example.com',  // MEGA login email
-    password: 'your-password',        // MEGA login password
+    email: 'chamarasadakalum68@gmail.com',  
+    password: 0724551791'',        
   },
 
   // MEGA API Base URL (optional if you want to set a custom URL)
