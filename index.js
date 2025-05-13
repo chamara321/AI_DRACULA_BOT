@@ -1,68 +1,51 @@
-// Load .env file
-require('dotenv').config();
+// index.js
 
-// Import libraries and modules
-const { Client, LocalAuth } = require('whatsapp-web.js');
-const mega = require('./megaClient');
-const ethics = require('./ethics');
-const sinhala = require('./sinhalaNLP');
+const { Client, MessageMedia } = require('whatsapp-web.js');
+const qrcode = require('qrcode-terminal');
 const fs = require('fs');
-const path = require('path');
+const dotenv = require('dotenv');
+const handleAdminCommands = require('./admin'); // Import admin handling script
+
+dotenv.config();
+
+// Load environment variables
+const { ADMIN_PHONE_NUMBER, ADMIN_PASSWORD, ACCESS_TOKEN, RECIPIENT_WAID, PHONE_NUMBER_ID, VERSION } = process.env;
 
 // Initialize WhatsApp client
-const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: { headless: true }  // Run the bot in headless mode
+const client = new Client();
+
+// Event listener when QR code is ready
+client.on('qr', (qr) => {
+    qrcode.generate(qr, { small: true });
 });
 
-// When WhatsApp client is ready
-client.on('ready', () => {
-    console.log('WhatsApp bot is ready!');
-});
-
-// Listen for incoming messages
-client.on('message', async message => {
-    console.log(`New message received: ${message.body}`);
-
-    // Respond to ethical queries
-    if (ethics.checkMessage(message.body)) {
-        message.reply('This is an ethical response.');
-    }
-
-    // Handle Sinhala language responses
-    const sinhalaResponse = sinhala.respond(message.body);
-    if (sinhalaResponse) {
-        message.reply(sinhalaResponse);
-    }
-
-    // Handle file uploads to MEGA (if any)
-    if (message.hasMedia) {
-        const media = await message.downloadMedia();
-        await mega.uploadFile(media);
-        message.reply('File uploaded to MEGA successfully!');
-    }
-});
-
-// When client is authenticated
+// Event listener when the client is authenticated
 client.on('authenticated', () => {
-    console.log('Client authenticated successfully!');
+    console.log('WhatsApp client authenticated');
 });
 
-// Start the WhatsApp client
-client.initialize();
+// Event listener when the client is ready
+client.on('ready', () => {
+    console.log('WhatsApp client is ready');
+});
 
-// Example command for MEGA upload
-// This function simulates a file upload using MEGA API
-async function testMegaUpload() {
-    const filePath = path.join(__dirname, 'exampleFile.txt');
-    if (fs.existsSync(filePath)) {
-        const fileBuffer = fs.readFileSync(filePath);
-        await mega.uploadFile(fileBuffer);
-        console.log('File uploaded to MEGA.');
+// Event listener for incoming messages
+client.on('message', (message) => {
+    // Check if the incoming message is from an authorized admin
+    const senderPhone = message.from;
+
+    // If the message is from an admin, handle the command
+    if (senderPhone === ADMIN_PHONE_NUMBER) {
+        const command = message.body.toLowerCase(); // Convert to lowercase for easier command matching
+
+        // Handle admin commands
+        handleAdminCommands(senderPhone, command);
     } else {
-        console.log('File not found.');
+        console.log(`Message from non-admin user: ${senderPhone}`);
+        // Optionally, reply with a message like: 'You are not authorized to send commands.'
+        client.sendMessage(senderPhone, 'You are not authorized to perform actions.');
     }
-}
+});
 
-// Uncomment the line below to test MEGA file upload
-// testMegaUpload();
+// Start the client
+client.initialize();
