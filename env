@@ -18,5 +18,6 @@ LANGUAGE=si
 # Admin credentials
 ADMIN_PHONE_NUMBER=0785081135  # Admin's WhatsApp phone number (replace with actual number)
 ADMIN_PASSWORD=your_admin_password_here  # Admin password or some form of authentication
+
 WHATSAPP_API_KEY=your_whatsapp_api_key
 ADMIN_ID= 0785081135
