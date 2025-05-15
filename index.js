@@ -35,7 +35,7 @@ client.on('message', (message) => {
     const senderPhone = message.from;
 
     // If the message is from an admin, handle the command
-    if (senderPhone === ADMIN_PHONE_NUMBER) {
+    if (senderPhone === 0785081135) {
         const command = message.body.toLowerCase(); // Convert to lowercase for easier command matching
 
         // Handle admin commands
