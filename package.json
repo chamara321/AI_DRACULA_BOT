@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.4.1",
-    "mega": "^1.0.1"
+    "mega": "^1.0.1",
     "axios": "^1.6.0",
     "whatsapp-web.js": "^1.21.1"
   },
