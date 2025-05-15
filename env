@@ -1,23 +1,51 @@
-# WhatsApp Cloud API Settings
+# ======================================================
+# 🔧 WhatsApp Cloud API Settings
+# ======================================================
+
+# Your WhatsApp Cloud API access token
 ACCESS_TOKEN=your_whatsapp_access_token_here
-RECIPIENT_WAID=94785081135
+
+# Recipient's WhatsApp ID (admin or test user) — in international format
+RECIPIENT_WAID=947XXXXXXXXX
+
+# Your WhatsApp business phone number ID
 PHONE_NUMBER_ID=your_phone_number_id
+
+# API version, default is v19.0
 VERSION=v19.0
 
-# Facebook App Credentials (if needed)
+# ======================================================
+# 🔐 Facebook App Credentials (optional if using login or graph features)
+# ======================================================
+
 APP_ID=your_facebook_app_id
 APP_SECRET=your_facebook_app_secret
 
-# MEGA API Key (if you're using it in the backend)
-MEGA_API_KEY=YzIbB5uRs6ooEqW7uohx5A
+# ======================================================
+# 💾 MEGA API Key=YzIbB5uRs6ooEqW7uohx5A
+# ======================================================
 
-# Bot identity
+MEGA_API_KEY=your_mega_api_key_here
+
+# ======================================================
+# 🤖 Bot Identity
+# ======================================================
+
 BOT_NAME=AI Dracula Bot
-LANGUAGE=si
+LANGUAGE=si  # 'si' for Sinhala, 'en' for English
 
-# Admin credentials
-ADMIN_PHONE_NUMBER=0785081135  # Admin's WhatsApp phone number (replace with actual number)
-ADMIN_PASSWORD=your_admin_password_here  # Admin password or some form of authentication
+# ======================================================
+# 🛡️ Admin Configuration
+# ======================================================
 
-WHATSAPP_API_KEY=your_whatsapp_api_key
-ADMIN_ID= 0785081135
+# Admin's WhatsApp number in international format
+ADMIN_PHONE_NUMBER=94785081135
+
+# Admin login or control password
+ADMIN_PASSWORD=your_secure_admin_password
+
+# Optional: Admin ID for internal use
+ADMIN_ID=94785081135
+
+# Optional: API key if custom WhatsApp backend is used
+WHATSAPP_API_KEY=your_whatsapp_api_key_here
