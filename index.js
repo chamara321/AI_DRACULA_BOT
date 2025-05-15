@@ -4,48 +4,45 @@ const { Client, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const fs = require('fs');
 const dotenv = require('dotenv');
-const handleAdminCommands = require('./admin'); // Import admin handling script
+const http = require('http'); // 🆕 Add this line
+const handleAdminCommands = require('./admin');
 
 dotenv.config();
 
 // Load environment variables
 const { ADMIN_PHONE_NUMBER, ADMIN_PASSWORD, ACCESS_TOKEN, RECIPIENT_WAID, PHONE_NUMBER_ID, VERSION } = process.env;
 
+// ✅ Create a minimal web server to keep Heroku happy
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('AI Dracula Bot is running.\n');
+}).listen(process.env.PORT || 3000); // Heroku provides PORT
+
 // Initialize WhatsApp client
 const client = new Client();
 
-// Event listener when QR code is ready
 client.on('qr', (qr) => {
-    qrcode.generate(qr, { small: true });
+  qrcode.generate(qr, { small: true });
 });
 
-// Event listener when the client is authenticated
 client.on('authenticated', () => {
-    console.log('WhatsApp client authenticated');
+  console.log('WhatsApp client authenticated');
 });
 
-// Event listener when the client is ready
 client.on('ready', () => {
-    console.log('WhatsApp client is ready');
+  console.log('WhatsApp client is ready');
 });
 
-// Event listener for incoming messages
 client.on('message', (message) => {
-    // Check if the incoming message is from an authorized admin
-    const senderPhone = message.from;
+  const senderPhone = message.from;
 
-    // If the message is from an admin, handle the command
-    if (senderPhone === 0785081135) {
-        const command = message.body.toLowerCase(); // Convert to lowercase for easier command matching
-
-        // Handle admin commands
-        handleAdminCommands(senderPhone, command);
-    } else {
-        console.log(`Message from non-admin user: ${senderPhone}`);
-        // Optionally, reply with a message like: 'You are not authorized to send commands.'
-        client.sendMessage(senderPhone, 'You are not authorized to perform actions.');
-    }
+  if (senderPhone === '0785081135' || senderPhone === process.env.ADMIN_PHONE_NUMBER) {
+    const command = message.body.toLowerCase();
+    handleAdminCommands(senderPhone, command);
+  } else {
+    console.log(`Message from non-admin user: ${senderPhone}`);
+    client.sendMessage(senderPhone, 'You are not authorized to perform actions.');
+  }
 });
 
-// Start the client
 client.initialize();
